@@ -13,6 +13,8 @@ dependencies = [
     "matplotlib>=3.8.2",
     "smart-open>=6.4.0",
     "aiofiles>=23.2.1",
+    "poethepoet>=0.24.4",
+    "streaming-form-data>=1.13.0",
 ]
 requires-python = ">=3.12"
 readme = "README.md"

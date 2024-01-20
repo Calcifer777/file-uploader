@@ -162,7 +162,7 @@ cython_debug/
 #.idea/
 
 starlette-tmp/
-outputs/
+output/
 files/
 .python-version
 mprofile*
