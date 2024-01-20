@@ -85,7 +85,7 @@ async def upload_file_chunks_smart_with_meta(
         path = f"output/{file.filename}"
         with smart_open.open(path, "wb") as fp:
             while chunk := await file.read(CHUNK_SIZE):
-                time.sleep(0.1)
                 print(f"reading {CHUNK_SIZE // 2**20}Mb")
+                time.sleep(0.2)
                 fp.write(chunk)  # type: ignore
     print("Metadata is: ", metadata)
