@@ -1,0 +1,27 @@
+[project]
+name = "file-uploader"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Marco Filippone", email = "m.filip@hotmail.it"},
+]
+dependencies = [
+    "fastapi>=0.109.0",
+    "python-multipart>=0.0.6",
+    "uvicorn>=0.26.0",
+    "memory-profiler>=0.61.0",
+    "matplotlib>=3.8.2",
+    "smart-open>=6.4.0",
+    "aiofiles>=23.2.1",
+]
+requires-python = ">=3.12"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+package-type = "library"
