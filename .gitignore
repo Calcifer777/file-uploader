@@ -167,3 +167,4 @@ files/
 .python-version
 mprofile*
 pyrightconfig.json
+azurite/

@@ -1,5 +1,12 @@
 # File Uploader
 
+## Usage
+
+Install `azurite` with:
+```bash
+npm install -g azurite
+```
+
 ## Resources
 
 
