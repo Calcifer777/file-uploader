@@ -1,12 +1,16 @@
 from pathlib import Path
 import time
+from typing import Annotated, Any, List, Dict
 
 import aiofiles
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, Form, UploadFile, File
+import json
+from pydantic import Json
 import smart_open
 
 PATH_OUTPUT = Path("./output/")
 PATH_OUTPUT.mkdir(exist_ok=True, parents=True)
+
 
 app = FastAPI()
 
@@ -54,11 +58,12 @@ async def upload_file_chunks(file: UploadFile = File(...)):
 
 # file.file: tempfile.SpooledTemporaryFile
 @app.post("/upload-chunks-smart")
-async def upload_file(file: UploadFile = File(...)):
+async def upload_file_chunks_smart(file: UploadFile = File(...)):
     """Read whole file in memory, write to target"""
     path = f"output/{file.filename}"
     with smart_open.open(path, "wb") as fp:
         while chunk := await file.read(CHUNK_SIZE):
+            time.sleep(1)
             print(f"reading {CHUNK_SIZE // 2**20}Mb")
             fp.write(chunk)  # type: ignore
 
@@ -67,3 +72,20 @@ async def upload_file(file: UploadFile = File(...)):
         "content": file.content_type,
         "path": path,
     }
+
+
+# file.file: tempfile.SpooledTemporaryFile
+@app.post("/upload-chunks-smart-with-meta")
+async def upload_file_chunks_smart_with_meta(
+    file: Annotated[UploadFile | None, File(...)] = None,
+    metadata: Annotated[Json, Form(default_factory=dict)] = dict(),
+):
+    """Read whole file in memory, write to target"""
+    if file is not None:
+        path = f"output/{file.filename}"
+        with smart_open.open(path, "wb") as fp:
+            while chunk := await file.read(CHUNK_SIZE):
+                time.sleep(0.1)
+                print(f"reading {CHUNK_SIZE // 2**20}Mb")
+                fp.write(chunk)  # type: ignore
+    print("Metadata is: ", metadata)
